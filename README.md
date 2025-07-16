@@ -1,18 +1,13 @@
 # Probabilistic Turnover Risk Scoring with Tiered Classification
 
-[](https://www.python.org/downloads/)
-[](https://colab.research.google.com/)
-[](https://www.google.com/search?q=https://www.ibm.com/docs/en/spss-modeler/18.2.2%3Ftopic%3Ddm-crisp-help-overview)
-
-
-
 ## 🚀 Project Overview
 
 Proyek ini bertujuan untuk mengatasi **tingkat *turnover* karyawan yang tinggi (62.9%)** di departemen penjualan dengan mengembangkan model *machine learning*. Model ini memberikan skor probabilitas risiko *turnover* untuk setiap karyawan, yang kemudian diklasifikasikan ke dalam tiga tingkatan (Tinggi, Sedang, Rendah) untuk memungkinkan intervensi yang tepat sasaran dan efisien.
 
   * **Live Demo:** **[Lihat Dashboard Interaktif di Looker](https://lookerstudio.google.com/u/0/)** 
-  * **Notebook Analisis:** **[Buka di Google Colab](https://colab.research.google.com/)** 
-  * **Presentasi Proyek:** **[Lihat Slide Deck](https://docs.google.com/presentation/)** 
+  * **Notebook Analisis:** **[Buka di Google Colab](https://github.com/Naufaliffa/final-project/tree/main/notebooks)**
+  * **Dataset:** **[Dataset yang digunakan](https://www.kaggle.com/).**
+  * **Presentasi Proyek:** **[Lihat Slide Deck](https://github.com/Naufaliffa/final-project/tree/main/presentation)** 
 
 -----
 
@@ -53,8 +48,8 @@ Proyek ini mengikuti metodologi **CRISP-DM** (*Cross-Industry Standard Process f
 
 Analisis data mengungkapkan beberapa pendorong utama *turnover* di departemen penjualan:
 
-  * **Key Finding 1:** *[Isi temuan utama Anda di sini. Contoh: Karyawan dengan masa kerja kurang dari 1 tahun dan tingkat komisi di bawah rata-rata memiliki kemungkinan 4x lebih besar untuk berhenti.]*
-  * **Key Finding 2:** *[Isi temuan kedua Anda di sini. Contoh: Tingkat kepuasan terhadap manajer langsung memiliki korelasi negatif yang kuat dengan niat untuk turnover.]*
+  * **Key Finding 1:** * *
+  * **Key Finding 2:** * *
 
 Berdasarkan analisis ini, model *machine learning* dikembangkan untuk menghasilkan skor risiko *turnover* bagi setiap individu.
 
