@@ -1,76 +1,99 @@
-Probabilistic Turnover Risk Scoring with Tiered Classification
-Ringkasan Proyek: Proyek ini bertujuan untuk mengatasi tingginya tingkat turnover karyawan di divisi sales (62.9%) dengan mengembangkan model machine learning. Model ini memberikan skor probabilitas turnover untuk setiap karyawan dan mengklasifikasikannya ke dalam tiga tingkatan risiko (High, Medium, Low) untuk memungkinkan intervensi yang tepat sasaran dan efisien dari segi biaya.
+# Probabilistic Turnover Risk Scoring with Tiered Classification
 
-Tautan Penting:
+[](https://www.python.org/downloads/)
+[](https://colab.research.google.com/)
+[](https://www.google.com/search?q=https://www.ibm.com/docs/en/spss-modeler/18.2.2%3Ftopic%3Ddm-crisp-help-overview)
 
-Live Demo/Dashboard: [Link ke Looker Dashboard Anda]
 
-Code Repository: [Link ke GitHub Repository Anda]
 
-Slide Presentasi: [Link ke Google Slides Anda]
+## 🚀 Project Overview
 
-1. Business Problem
-Tingkat turnover karyawan di divisi sales saat ini mencapai 62.9%, lebih dari dua kali lipat angka ideal industri yaitu 30%. Tingginya angka ini menyebabkan kerugian signifikan bagi perusahaan, mencakup biaya rekrutmen, pelatihan karyawan baru, dan hilangnya produktivitas. Mengidentifikasi karyawan yang berisiko turnover secara proaktif sangat krusial untuk menekan biaya dan menjaga stabilitas tim.
+Proyek ini bertujuan untuk mengatasi **tingkat *turnover* karyawan yang tinggi (62.9%)** di departemen penjualan dengan mengembangkan model *machine learning*. Model ini memberikan skor probabilitas risiko *turnover* untuk setiap karyawan, yang kemudian diklasifikasikan ke dalam tiga tingkatan (Tinggi, Sedang, Rendah) untuk memungkinkan intervensi yang tepat sasaran dan efisien.
 
-2. Solusi & Dampak Bisnis
-Kami mengembangkan sebuah model klasifikasi probabilistik untuk memprediksi kemungkinan seorang karyawan akan turnover. Model ini tidak hanya memprediksi "ya" atau "tidak", tetapi memberikan skor risiko yang kemudian dikategorikan menjadi tiga tingkatan:
+  * **Live Demo:** **[Lihat Dashboard Interaktif di Looker](https://lookerstudio.google.com/u/0/)** 
+  * **Notebook Analisis:** **[Buka di Google Colab](https://colab.research.google.com/)** 
+  * **Presentasi Proyek:** **[Lihat Slide Deck](https://docs.google.com/presentation/)** 
 
-High Risk: Karyawan dengan kemungkinan turnover sangat tinggi.
+-----
 
-Medium Risk: Karyawan yang menunjukkan tanda-tanda awal risiko turnover.
+## 🎯 Business Problem & Objective
 
-Low Risk: Karyawan yang cenderung bertahan.
+Tingkat *turnover* di departemen penjualan telah mencapai **62.9%**, jauh di atas angka ideal industri sebesar 30%. Hal ini menyebabkan kerugian signifikan bagi perusahaan dalam bentuk biaya rekrutmen, pelatihan, dan hilangnya produktivitas.
 
-Dampak Bisnis:
-Pendekatan ini memungkinkan alokasi sumber daya yang lebih cerdas. Sesuai prinsip Pareto, di mana ~20% karyawan berisiko tinggi dapat menyebabkan ~80% kerugian, kami mengusulkan alokasi anggaran retensi dan pelatihan sebagai berikut:
+Tujuan utama proyek ini adalah:
 
-High Risk: Alokasi 60% dari budget untuk intervensi intensif.
+1.  **Mengidentifikasi** faktor-faktor utama yang memengaruhi keputusan karyawan untuk berhenti.
+2.  **Mengembangkan** model klasifikasi untuk memprediksi probabilitas *turnover* setiap karyawan.
+3.  **Menciptakan** sistem segmentasi risiko (*High, Medium, Low*) untuk memprioritaskan upaya retensi.
 
-Medium Risk: Alokasi 25% untuk program pengembangan.
+-----
 
-Low Risk: Alokasi 15% untuk program apresiasi umum.
+## metodologi CRISP-DM
 
-Strategi ini memastikan intervensi yang paling mahal diberikan kepada mereka yang paling membutuhkannya, sehingga memaksimalkan ROI dari program retensi karyawan.
+Proyek ini mengikuti metodologi **CRISP-DM** (*Cross-Industry Standard Process for Data Mining*) untuk memastikan proses yang terstruktur dan berorientasi pada hasil bisnis.
 
-3. Tech Stack & Tools
-Analisis & Pemodelan: Python, Pandas, Scikit-learn, Matplotlib
+1.  **Business Understanding:** Memahami masalah tingginya *turnover* dan mendefinisikan tujuan proyek bersama para pemangku kepentingan.
+2.  **Data Understanding:** Melakukan analisis data eksplorasi (EDA) pada dataset internal yang berisi 1000 baris untuk menemukan pola dan wawasan awal.
+3.  **Data Preparation:** Membersihkan data, menangani nilai yang hilang, dan melakukan rekayasa fitur (*feature engineering*) untuk mempersiapkan data untuk pemodelan.
+4.  **Modeling:** Melatih beberapa model klasifikasi dan memilih yang terbaik berdasarkan metrik performa yang relevan.
+5.  **Evaluation:** Mengevaluasi performa model secara menyeluruh untuk memastikan tidak terjadi *overfitting* atau *bias*, serta mengukur potensi dampak bisnisnya.
+6.  **Deployment:** Menyajikan hasil, model, dan *dashboard* kepada tim HR dan manajemen sebagai alat bantu pengambilan keputusan strategis.
 
-Lingkungan Kerja: Google Colab
+-----
 
-Visualisasi & Dashboard: Looker
+## 🛠️ Tech Stack & Tools
 
-Version Control: Git & GitHub
+  * **Analisis & Pemodelan:** Python, Pandas, Scikit-Learn, Jupyter Notebook (via Google Colab)
+  * **Visualisasi & Dashboard:** Looker (Looker Studio)
+  * **Version Control:** Git & GitHub
 
-4. Metodologi
-Proses pengembangan model mengikuti alur kerja data science standar:
+-----
 
-Data Preprocessing: Membersihkan dataset internal yang terdiri dari 1000 baris, menangani nilai yang hilang, dan melakukan encoding pada fitur kategorikal.
+## 📊 Key Findings & Analysis
 
-Feature Engineering: Membuat fitur-fitur baru yang relevan yang dapat meningkatkan performa model (contoh: rasio gaji terhadap rata-rata industri, masa kerja).
+Analisis data mengungkapkan beberapa pendorong utama *turnover* di departemen penjualan:
 
-Pemodelan: Menggunakan model Logistic Regression untuk mendapatkan skor probabilitas yang mudah diinterpretasikan oleh pihak bisnis.
+  * **Key Finding 1:** *[Isi temuan utama Anda di sini. Contoh: Karyawan dengan masa kerja kurang dari 1 tahun dan tingkat komisi di bawah rata-rata memiliki kemungkinan 4x lebih besar untuk berhenti.]*
+  * **Key Finding 2:** *[Isi temuan kedua Anda di sini. Contoh: Tingkat kepuasan terhadap manajer langsung memiliki korelasi negatif yang kuat dengan niat untuk turnover.]*
 
-Klasifikasi Bertingkat: Menerapkan ambang batas (thresholds) pada skor probabilitas untuk mengelompokkan karyawan ke dalam kategori risiko High, Medium, dan Low.
+Berdasarkan analisis ini, model *machine learning* dikembangkan untuk menghasilkan skor risiko *turnover* bagi setiap individu.
 
-Evaluasi: Mengevaluasi performa model menggunakan metrik seperti AUC-ROC dan Precision-Recall untuk memastikan keandalannya dalam mengidentifikasi kandidat turnover.
+-----
 
-5. Temuan Utama
-[Temuan Utama 1]: Masukkan temuan kunci pertama di sini. Contoh: "Karyawan dengan masa kerja kurang dari 1 tahun dan tingkat pencapaian target di bawah 70% memiliki korelasi tertinggi dengan risiko turnover."
+## 💼 Business Impact & Recommendations
 
-[Temuan Utama 2]: Masukkan temuan kunci kedua di sini. Contoh: "Faktor seperti 'jarak ke kantor' dan 'jumlah proyek yang ditangani' juga terbukti menjadi prediktor yang signifikan."
+Model ini memungkinkan perusahaan untuk beralih dari strategi retensi yang reaktif menjadi **proaktif dan berbasis data**. Dengan mengadopsi **prinsip Pareto** (di mana 20% karyawan yang berisiko *turnover* dapat menyebabkan 80% kerugian), kami merekomendasikan alokasi anggaran retensi dan pelatihan yang terfokus sebagai berikut:
 
-6. Tantangan & Pembelajaran
-Tantangan Teknis: Risiko overfitting dan bias dalam model menjadi perhatian utama. Hal ini dimitigasi dengan teknik regularisasi dan validasi silang (cross-validation).
+| Tingkat Risiko | Proporsi Karyawan | Alokasi Anggaran Pelatihan | Rekomendasi Tindakan |
+| :------------- | :----------------- | :----------------------- | :-------------------- |
+| **Tinggi** | \~20%               | **60%** | Sesi konseling 1-on-1, penyesuaian insentif, program mentoring. |
+| **Sedang** | \~35%               | **25%** | Pelatihan pengembangan karir, survei keterlibatan, *workshop* tim. |
+| **Rendah** | \~45%               | **15%** | Program apresiasi reguler, peluang pengembangan standar. |
 
-Tantangan User: Versi awal model ditolak oleh tim HR karena dianggap kurang intuitif. Ini menjadi pembelajaran berharga untuk fokus pada kebutuhan pengguna. Proyek ini kemudian diiterasi untuk menyertakan dasbor yang lebih interaktif dan penjelasan yang lebih sederhana mengenai cara kerja model.
+Dengan pendekatan ini, perusahaan dapat **mengoptimalkan pengeluaran** dan secara signifikan **menurunkan tingkat *turnover*** dengan menargetkan intervensi pada segmen yang paling krusial.
 
-7. Cara Menjalankan Proyek
-Clone repository ini:
+-----
 
-git clone [URL-GITHUB-ANDA]
+## 💡 Challenges & Learnings
 
-Buka notebook di Google Colab:
-Navigasi ke file Turnover_Risk_Scoring.ipynb dan buka menggunakan Google Colab.
+  * **Tantangan Teknis:** Risiko **overfitting** dan **bias** dalam model menjadi perhatian utama. Ini diatasi melalui validasi silang (*cross-validation*), regularisasi, dan analisis fitur yang cermat untuk memastikan keadilan dan generalisasi model.
+  * **Tantangan Stakeholder:** Versi awal model **ditolak oleh tim HR** karena dianggap kurang intuitif dan tidak sepenuhnya sesuai dengan alur kerja mereka.
+      * **Pembelajaran:** Hal ini menjadi pelajaran berharga tentang pentingnya **melibatkan *user* (pengguna akhir) sejak awal** (*user-centric design*) dan melakukan iterasi berdasarkan umpan balik mereka. Proyek ini menekankan bahwa keberhasilan solusi teknis sangat bergantung pada adopsi dan kegunaannya bagi pengguna.
 
-Jalankan semua sel:
-Dataset employee_data.csv sudah disertakan di dalam repository untuk memastikan reproduktifitas.
+-----
+
+## 📂 Project Directory Structure
+
+```
+.
+├── notebooks/
+│   └── turnover_analysis.ipynb
+├── data/
+│   └── raw_data.csv
+├── presentation/
+│   └── project_slides.pdf
+├── README.md
+└── .gitignore
+```
+
+-----
