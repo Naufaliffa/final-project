@@ -87,6 +87,10 @@ Dengan pendekatan ini, perusahaan dapat **mengoptimalkan pengeluaran** dan secar
 │   └── raw_data.csv
 ├── presentation/
 │   └── project_slides.pdf
+├── model/
+│   └── model.pkl
+├── image/
+│   └── gambar.img
 ├── README.md
 └── .gitignore
 ```
