@@ -23,7 +23,7 @@ Tujuan utama proyek ini adalah:
 
 -----
 
-## metodologi CRISP-DM
+## 🌊 Metodologi CRISP-DM
 
 Proyek ini mengikuti metodologi **CRISP-DM** (*Cross-Industry Standard Process for Data Mining*) untuk memastikan proses yang terstruktur dan berorientasi pada hasil bisnis.
 
