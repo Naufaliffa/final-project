@@ -16,8 +16,8 @@ Proyek ini bertujuan untuk mengatasi tingginya tingkat *turnover* karyawan di Ta
 * **[Presentasi Proyek]()**
 
 ## Daftar Isi
-1.  [Business Problem & Objective](#1-Business-Problem-&-Objective)
-2.  [Business Value & Impact](#2-nilai-bisnis--dampak)
+1.  [Business Problem & Objective](#1--business-problem-objective)
+2.  [Business Value & Impact](#2--usiness-value--impact)
 3.  [Metodologi: CRISP-DM](#3-metodologi-crisp-dm)
 4.  [Hasil Analisis & Temuan Utama](#4-hasil-analisis--temuan-utama)
 5.  [Detail Teknis](#5-detail-teknis)
