@@ -29,18 +29,47 @@ st.markdown("""
         }
         [data-testid="stSidebar"] button {
             background-color: transparent !important;
-            color: white !important;
+            color: inherit !important;
             text-align: left !important;
             font-size: 16px;
         }
         [data-testid="stSidebar"] button:hover {
-            background-color: #333 !important;
+            background-color: rgba(0,0,0,0.1) !important;
             font-weight: bold;
+        }
+
+        /* For Light Theme */
+        @media (prefers-color-scheme: light) {
+            .risk-low    { background-color: #d4edda; color: #155724; }
+            .risk-medium { background-color: #fff3cd; color: #856404; }
+            .risk-high   { background-color: #f8d7da; color: #721c24; }
+            .suggest-box { background-color: #f1f1f1; color: #333333; }
+            .table-header { background-color: #e9ecef; color: #212529; }
+        }
+
+        /* For Dark Theme */
+        @media (prefers-color-scheme: dark) {
+            .risk-low    { background-color: #1f5c2e; color: white; }
+            .risk-medium { background-color: #8a6d00; color: white; }
+            .risk-high   { background-color: #7a1f1f; color: white; }
+            .suggest-box { background-color: #1e1e1e; color: white; }
+            .table-header { background-color: #444; color: white; }
+        }
+
+        .risk-box, .suggest-box {
+            font-size: 26px;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
         }
     </style>
 """, unsafe_allow_html=True)
 
 # Sidebar navigation as pressable text
+# ```
+# Bagian ini buat sidebar bisa dipencet
+# tanpa ada visual button
+# ```
 st.sidebar.markdown("### Navigation")
 pages = ["Prediction", "Previous Predictions"]
 for page in pages:
@@ -49,30 +78,53 @@ for page in pages:
 
 selected_page = st.session_state.page
 
+# Selected sidebar page
+# ```
+# Predictions
+    # Buat input prediksi, mayoritas input
+    # pake angka decimal, cuma fitur 2 & 3 yang float
+    # Setelah di input, akan diteruskan ke model 
+    # lalu di prediksi dengan predict_proba di backend
+# ```
+
 if selected_page == "Prediction":
     st.title("🔮 Churn Prediction")
 
     with st.form("prediction_form"):
-        target = st.number_input("🎯 Target Achievement (%)", min_value=0, format="%d")
+        # --- PERBAIKAN: Menambahkan argumen 'value' untuk setiap input ---
+        target = st.number_input("🎯 Target Achievement (%)", min_value=0, max_value=120, format="%d")
+        hours = st.number_input("⏱️ Working Hours per Week", min_value=0, max_value=75, format="%d")
         satisfaction = st.slider("😊 Job Satisfaction (1-5)", min_value=0.0, max_value=5.0, step=0.01)
         manager = st.slider("👔 Manager Support Score (1-5)", min_value=0.0, max_value=5.0, step=0.01)
-        hours = st.number_input("⏱️ Working Hours per Week", min_value=0, format="%d")
-        distance = st.number_input("🚗 Distance to Office (km)", min_value=0, format="%d")
-
+        tenure = st.number_input("🏢 Company Tenures (years)", min_value=0.0, max_value=10.0, step=0.25)
+        distance = st.number_input("🚗 Distance to Office (km)", min_value=0.0, max_value=50.0, step=0.25)
+        tenure_age = st.number_input("Tenure Age (years)", min_value=0.0, max_value=5.0, step=0.25)
+        income_per_hour = st.number_input("💰 Income (Hourly)", min_value=0.0, max_value=100000.0, step=1000.0)
+        exp_to_tenure = st.number_input("💰 Experience to Tenures (years)",min_value=0.0, max_value=10.0, step=0.25)
+        marital_status = st.radio("💍 Marital Status", options=["Single", "Married"]) == "Single"
         submitted = st.form_submit_button("Predict")
 
     if submitted:
         payload = {
             "Target": target,
+            "Hours": hours,
             "Satisfaction": satisfaction,
             "Manager": manager,
-            "Hours": hours,
-            "Distance": distance
+            "Tenure": tenure,
+            "Distance": distance,
+            "Age": tenure_age,
+            "Salary": income_per_hour,
+            "Experience": exp_to_tenure,
+            "Marital": int(marital_status)
         }
 
         try:
             response = requests.post(API_URL, json=payload)
-            result = response.json()
+            try:
+                result = response.json()
+            except Exception:
+                st.error(f"Unexpected server error:\n{response.text}")
+                st.stop()
 
             probability = result["probability"]
             risk = result["risk"]
@@ -90,14 +142,16 @@ if selected_page == "Prediction":
                 risk_color = "#7a1f1f"
 
             # Display results with emphasis
+            text_color = "white"
+
             st.markdown(f"""
-                <div style='font-size: 26px; padding: 10px; background-color: {prob_color}; color: white; border-radius: 5px;'>
+                <div class='risk-box risk-{risk.lower()}'>
                     <strong>Churn Probability:</strong> {probability:.0%}
                 </div>
-                <div style='font-size: 26px; padding: 10px; background-color: {risk_color}; color: white; border-radius: 5px;'>
+                <div class='risk-box risk-{risk.lower()}'>
                     <strong>Risk Group:</strong> {risk}
                 </div>
-                <div style='font-size: 22px; padding: 10px; background-color: #1e1e1e; color: white; border-radius: 5px;'>
+                <div class='suggest-box'>
                     🧠 <strong>Suggestion:</strong> {suggestion}
                 </div>
             """, unsafe_allow_html=True)
@@ -112,6 +166,13 @@ if selected_page == "Prediction":
 
         except Exception as e:
             st.error(f"Prediction failed: {e}")
+
+# Selected sidebar page
+# ```
+# History
+    # Buat cek history prediksi 
+    # gk ada file yang disimpan, semuanya bersifat lokal
+# ```
 
 elif selected_page == "Previous Predictions":
     st.title("⏱️ Previous Predictions")
@@ -142,15 +203,19 @@ elif selected_page == "Previous Predictions":
             <div style='margin-top: 20px;'>
                 <h4>Prediction #{len(st.session_state.history) - i + 1}</h4>
                 <table style='width: 100%; border-collapse: collapse;'>
-                    <tr style='background-color: #282828; color: white;'>
+                    <tr class='table-header'>
                         {''.join(f'<th style="padding: 8px; border: 1px solid #ccc;">{col}</th>' for col in feature_names)}
                     </tr>
                     <tr>
                         {''.join(f'<td style="padding: 8px; border: 1px solid #ccc;">{val}</td>' for val in feature_values)}
                     </tr>
                     <tr>
-                        <td style="padding: 8px; border: 1px solid #ccc; background-color: {prob_color}; color: white;" colspan="{len(feature_names)//2}"><strong>Probability:</strong> {probability:.0%}</td>
-                        <td style="padding: 8px; border: 1px solid #ccc; background-color: {risk_color}; color: white;" colspan="{len(feature_names) - len(feature_names)//2}"><strong>Risk Group:</strong> {risk}</td>
+                        <td style="padding: 8px; border: 1px solid #ccc; background-color: {prob_color}; color: white;" colspan="{len(feature_names)//2}">
+                            <strong>Probability:</strong> {probability:.0%}
+                        </td>
+                        <td style="padding: 8px; border: 1px solid #ccc; background-color: {risk_color}; color: white;" colspan="{len(feature_names) - len(feature_names)//2}">
+                            <strong>Risk Group:</strong> {risk}
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="{len(feature_names)}" style="padding: 8px; border: 1px solid #ccc;"><strong>Suggestion:</strong> {record['suggestion']}</td>
