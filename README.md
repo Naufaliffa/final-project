@@ -8,7 +8,7 @@
 
 ## 🚀 Project Overview
 
-Proyek ini bertujuan untuk mengatasi tingginya tingkat *turnover* karyawan di TalentaHub (32.9%) dengan mengembangkan sebuah model *machine learning*. Model ini secara proaktif mengidentifikasi karyawan yang berisiko tinggi untuk keluar dari perusahaan dengan memberikan skor risiko probabilistik. Berdasarkan skor ini, karyawan diklasifikasikan ke dalam tiga tingkatan risiko (Tinggi, Sedang, Rendah) untuk memungkinkan tim HR menerapkan strategi retensi yang lebih terfokus dan efisien dari segi biaya.
+Proyek ini bertujuan untuk mengatasi tingginya tingkat *turnover* karyawan di TalentaHub (62.9%) dengan mengembangkan sebuah model *machine learning*. Model ini secara proaktif mengidentifikasi karyawan yang berisiko tinggi untuk keluar dari perusahaan dengan memberikan skor risiko probabilistik. Berdasarkan skor ini, karyawan diklasifikasikan ke dalam tiga tingkatan risiko (Tinggi, Sedang, Rendah) untuk memungkinkan tim HR menerapkan strategi retensi yang lebih terfokus dan efisien dari segi biaya.
 
 **Links:**
 * **[Notebook Google Colab](https://github.com/Naufaliffa/final-project/tree/main/notebooks)**
@@ -16,8 +16,8 @@ Proyek ini bertujuan untuk mengatasi tingginya tingkat *turnover* karyawan di Ta
 * **[Presentasi Proyek]()**
 
 ## Daftar Isi
-1.  [Business Problem & Objective](#1--business-problem-objective)
-2.  [Business Value & Impact](#2--usiness-value--impact)
+1.  [Business Problem & Objective](#1--business-problem--objective)
+2.  [Business Value & Impact](#2--business-value--impact)
 3.  [Metodologi: CRISP-DM](#3-metodologi-crisp-dm)
 4.  [Hasil Analisis & Temuan Utama](#4-hasil-analisis--temuan-utama)
 5.  [Detail Teknis](#5-detail-teknis)
@@ -104,16 +104,19 @@ Tiga faktor yang paling signifikan mempengaruhi keputusan seorang karyawan untuk
 
 ```
 .
-├── notebooks/
-│   └── turnover_analysis.ipynb
 ├── data/
 │   └── raw_data.csv
-├── presentation/
-│   └── project_slides.pdf
-├── model/
-│   └── model.pkl
+├── deploy/
+│   └── README.md
+│   └── backend.py
+│   └── frontend.py
+│   └── requirements.txt
 ├── image/
 │   └── gambar.img
+├── notebooks/
+│   └── turnover_analysis.ipynb
+├── presentation/
+│   └── project_slides.pdf
 ├── README.md
 └── .gitignore
 ```
