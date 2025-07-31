@@ -26,7 +26,7 @@ Proyek ini bertujuan untuk mengatasi tingginya tingkat *turnover* karyawan di Ta
 
 ---
 
-### 1. 🎯 Business Problem & Objective
+## 1. 🎯 Business Problem & Objective
 
 TalentaHub, sebuah perusahaan di bidang rekrutmen dan manajemen talenta sales, menghadapi tantangan serius dengan **tingkat turnover karyawan yang mencapai 62.9%** pada akhir tahun lalu. Tingginya angka ini berdampak langsung pada:
 * **Peningkatan Biaya**: Biaya rekrutmen dan pelatihan karyawan baru yang signifikan.
@@ -35,22 +35,57 @@ TalentaHub, sebuah perusahaan di bidang rekrutmen dan manajemen talenta sales, m
 
 Meskipun telah ada program kompensasi dan *engagement*, TalentaHub belum memiliki sistem untuk **mengidentifikasi karyawan berisiko secara proaktif**. Pendekatan yang ada saat ini bersifat reaktif, bukan preventif.
 
-### 2. 💼 Business Value & Impact
+## 2. 💼 Business Value & Impact
+Analisis tingkat risiko karyawan resign berdasarkan pendekatan **Risk-Based Prioritization** untuk mengalokasikan sumber daya dan perhatian pada area yang memiliki risiko tertinggi terlebih dahulu.
 
-Solusi berbasis data ini memberikan skor risiko *turnover* untuk setiap karyawan, yang memungkinkan perusahaan untuk:
+### Risk Categories
 
-🎯 **Alokasi Sumber Daya yang Tepat Sasaran**
-Dengan menerapkan **Prinsip Pareto**, di mana 20% karyawan yang *turnover* dapat menyebabkan 80% kerugian, kami mengusulkan alokasi anggaran retensi yang berjenjang sesuai tingkat risiko:
-* **Risiko Tinggi**: Alokasi sumber daya **60%** (misalnya: sesi *coaching* intensif, penyesuaian kompensasi, program mentoring).
-* **Risiko Sedang**: Alokasi sumber daya **25%** (misalnya: program pelatihan tambahan, *feedback* rutin).
-* **Risiko Rendah**: Alokasi sumber daya **15%** (misalnya: program *engagement* umum).
+| Risk Level | Kemungkinan Resign | Estimasi Biaya/Orang | Komponen Biaya Dampak | Penjelasan |
+|------------|-------------------|---------------------|----------------------|------------|
+| 🔴 **High** | >90% | 60% | • Biaya rekrutmen baru<br>• Biaya pelatihan onboarding<br>• Hilangnya produktivitas<br>• Kehilangan pengetahuan organisasi (IP loss)<br>• Disengagement tim | Berdasarkan pendekatan Risk-Based Prioritization bahwa mengalokasikan sumber daya dan perhatian pada area yang memiliki risiko tertinggi terlebih dahulu |
+| 🟠 **Medium** | 38–90% | 30% | • Biaya rekrutmen (kemungkinan resign sedang)<br>• Pelatihan ulang sebagian<br>• Supervisi tambahan | Belum tentu resign, tapi potensi kerugian tetap ada jika tidak dimitigasi |
+| 🟢 **Low** | <38% | 10% | • Biaya monitoring & engagement<br>• Survey kepuasan, wellness, dsb. | Biaya retensi pasif, seperti wellbeing support, check-in, dan engagement plan |
 
-📈 **Pengambilan Keputusan Berbasis Data**
+### Business Impact
+
+### Model Performance
+| Metric | Value |
+|--------|-------|
+| **Total Karyawan Berisiko** | 629 karyawan |
+| **Recall Rate** | 90% |
+| **Hasil Identifikasi** | 567 karyawan |
+
+### Turnover Reduction Results
+| Periode | Jumlah Turnover | Persentase |
+|---------|----------------|------------|
+| **Sebelum** | 629 | 62.9% |
+| **Sesudah** | 63 | 0.63% |
+
+**Model ini berhasil menurunkan risiko turnover dari 62.9% menjadi 0.63%**
+
+### Key Insights
+
+1. **Prioritas Utama:** Fokus pada karyawan dengan risk level tinggi (>90% kemungkinan resign)
+2. **Cost Impact:** Biaya tertinggi terjadi pada kategori high risk dengan estimasi 60% dari gaji tahunan per orang
+3. **Prevention Strategy:** Investasi pada monitoring dan engagement untuk kategori low risk lebih cost-effective
+4. **Resource Allocation:** Alokasi sumber daya sebaiknya mengikuti tingkat risiko untuk efisiensi maksimal
+
+### Implementation Strategy
+
+- **High Risk:** Immediate intervention dan retention program intensif
+- **Medium Risk:** Monitoring ketat dengan action plan siaga
+- **Low Risk:** Maintenance program dan preventive measures
+
+---
+
+*Risk-Based Prioritization Framework untuk Employee Retention Management*
+
+#### 📈 **Pengambilan Keputusan Berbasis Data**
 Dengan pendekatan ini, perusahaan dapat **mengoptimalkan pengeluaran** dan secara signifikan **menurunkan tingkat *turnover*** dengan menargetkan intervensi pada segmen yang paling krusial. Serta menyediakan *insight* objektif bagi manajemen dan HR untuk diskusi retensi, menggantikan intuisi dengan bukti data.
 
 ---
 
-### 3. Metodologi: CRISP-DM
+## 3. Metodologi: CRISP-DM
 
 Proyek ini mengikuti metodologi *Cross-Industry Standard Process for Data Mining* (CRISP-DM) untuk memastikan proses yang terstruktur dan berorientasi pada tujuan bisnis.
 
@@ -65,7 +100,7 @@ Proyek ini mengikuti metodologi *Cross-Industry Standard Process for Data Mining
 
 ---
 
-### 4. Hasil Analisis & Temuan Utama
+## 4. Hasil Analisis & Temuan Utama
 
 #### Temuan Kunci 1: Tingkat Pendidikan Berpengaruh
 Analisis menunjukkan bahwa karyawan dengan jenjang pendidikan **Diploma** memiliki kecenderungan *turnover* yang lebih tinggi dibandingkan dengan jenjang pendidikan lainnya. Ini bisa menjadi indikasi adanya ketidaksesuaian antara ekspektasi karir dengan peluang yang ada.
@@ -80,7 +115,7 @@ Tiga faktor yang paling signifikan mempengaruhi keputusan seorang karyawan untuk
 
 ---
 
-### 5. Detail Teknis
+## 5. Detail Teknis
 
 * **Tools**: Google Colaboratory, Jupyter Notebook
 * **Libraries**:
@@ -92,7 +127,7 @@ Tiga faktor yang paling signifikan mempengaruhi keputusan seorang karyawan untuk
 
 ---
 
-### 6. Tantangan yang Dihadapi
+## 6. Tantangan yang Dihadapi
 
 * **Data**: Kualitas data yang tidak sempurna memerlukan pembersihan ekstensif. Tanpa konteks bisnis yang kuat, data bisa disalahartikan.
 * **Model**: Terdapat risiko *overfitting* atau *underfitting* serta potensi bias dalam model yang dapat menghasilkan evaluasi yang tidak sesuai dengan kenyataan.
@@ -100,7 +135,7 @@ Tiga faktor yang paling signifikan mempengaruhi keputusan seorang karyawan untuk
 
 ---
 
-### 7. Struktur Proyek
+## 7. Struktur Proyek
 
 ```
 .
