@@ -25,14 +25,14 @@ history_data = []
 def get_risk_group(prob):
     if prob < 0.38:
         return "Low"
-    elif prob < 0.90:
+    elif prob < 0.69:
         return "Medium"
     return "High"
 
 def get_suggestion(prob):
     if prob < 0.38:
         return "Keep up the good work!"
-    elif prob < 0.90:
+    elif prob < 0.69:
         return "Provide more support and engagement."
     return "Urgent action needed: Assign mentoring or career development."
 
