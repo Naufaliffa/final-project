@@ -42,8 +42,8 @@ Analisis tingkat risiko karyawan resign berdasarkan pendekatan **Risk-Based Prio
 
 | Risk Level | Kemungkinan Resign | Estimasi Biaya/Orang | Komponen Biaya Dampak | Penjelasan |
 |------------|-------------------|---------------------|----------------------|------------|
-| 🔴 **High** | >90% | 60% | • Biaya rekrutmen baru<br>• Biaya pelatihan onboarding<br>• Hilangnya produktivitas<br>• Kehilangan pengetahuan organisasi (IP loss)<br>• Disengagement tim | Berdasarkan pendekatan Risk-Based Prioritization bahwa mengalokasikan sumber daya dan perhatian pada area yang memiliki risiko tertinggi terlebih dahulu |
-| 🟠 **Medium** | 38–90% | 30% | • Biaya rekrutmen (kemungkinan resign sedang)<br>• Pelatihan ulang sebagian<br>• Supervisi tambahan | Belum tentu resign, tapi potensi kerugian tetap ada jika tidak dimitigasi |
+| 🔴 **High** | >69% | 60% | • Biaya rekrutmen baru<br>• Biaya pelatihan onboarding<br>• Hilangnya produktivitas<br>• Kehilangan pengetahuan organisasi (IP loss)<br>• Disengagement tim | Berdasarkan pendekatan Risk-Based Prioritization bahwa mengalokasikan sumber daya dan perhatian pada area yang memiliki risiko tertinggi terlebih dahulu |
+| 🟠 **Medium** | 38–69% | 30% | • Biaya rekrutmen (kemungkinan resign sedang)<br>• Pelatihan ulang sebagian<br>• Supervisi tambahan | Belum tentu resign, tapi potensi kerugian tetap ada jika tidak dimitigasi |
 | 🟢 **Low** | <38% | 10% | • Biaya monitoring & engagement<br>• Survey kepuasan, wellness, dsb. | Biaya retensi pasif, seperti wellbeing support, check-in, dan engagement plan |
 
 ### Business Impact
@@ -52,16 +52,16 @@ Analisis tingkat risiko karyawan resign berdasarkan pendekatan **Risk-Based Prio
 | Metric | Value |
 |--------|-------|
 | **Total Karyawan Berisiko** | 629 karyawan |
-| **Recall Rate** | 90% |
-| **Hasil Identifikasi** | 567 karyawan |
+| **Recall Rate** | 71% |
+| **Hasil Identifikasi** | 447 karyawan |
 
 ### Turnover Reduction Results
 | Periode | Jumlah Turnover | Persentase |
 |---------|----------------|------------|
 | **Sebelum** | 629 | 62.9% |
-| **Sesudah** | 63 | 0.63% |
+| **Sesudah** | 327 | 30.2% |
 
-**Model ini berhasil menurunkan risiko turnover dari 62.9% menjadi 0.63%**
+**Model ini berhasil menurunkan risiko turnover dari 62.9% menjadi 30.2% atau lebih dari 2 kali penurunan**
 
 ### Key Insights
 
