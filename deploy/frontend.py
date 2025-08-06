@@ -91,31 +91,29 @@ if selected_page == "Prediction":
     st.title("🔮 Churn Prediction")
 
     with st.form("prediction_form"):
-        # --- PERBAIKAN: Menambahkan argumen 'value' untuk setiap input ---
         target = st.number_input("🎯 Target Achievement (%)", min_value=0, max_value=120, format="%d")
-        hours = st.number_input("⏱️ Working Hours per Week", min_value=0, max_value=75, format="%d")
         satisfaction = st.slider("😊 Job Satisfaction (1-5)", min_value=0.0, max_value=5.0, step=0.01)
         manager = st.slider("👔 Manager Support Score (1-5)", min_value=0.0, max_value=5.0, step=0.01)
-        tenure = st.number_input("🏢 Company Tenures (years)", min_value=0.0, max_value=10.0, step=0.25)
-        distance = st.number_input("🚗 Distance to Office (km)", min_value=0.0, max_value=50.0, step=0.25)
-        tenure_age = st.number_input("Tenure Age (years)", min_value=0.0, max_value=5.0, step=0.25)
-        income_per_hour = st.number_input("💰 Income (Hourly)", min_value=0.0, max_value=100000.0, step=1000.0)
-        exp_to_tenure = st.number_input("💰 Experience to Tenures (years)",min_value=0.0, max_value=10.0, step=0.25)
+        distance = st.number_input("🚗 Distance to Office (km)", min_value=0, format="%d")
         marital_status = st.radio("💍 Marital Status", options=["Single", "Married"]) == "Single"
+        hours = st.number_input("⏱️ Working Hours per Week", min_value=0, max_value=75, format="%d")
+        tenure = st.number_input("🏢 Company Tenure (years)", min_value=0.0, max_value=5.0, step=0.25)
+        commission = st.number_input("💰 Commission Rate", min_value=0.0, max_value=0.1, step=0.01)
+        age = st.number_input("🎂 Age", min_value=18, max_value=100, format="%d")
+
         submitted = st.form_submit_button("Predict")
 
     if submitted:
         payload = {
             "Target": target,
-            "Hours": hours,
             "Satisfaction": satisfaction,
             "Manager": manager,
-            "Tenure": tenure,
             "Distance": distance,
-            "Age": tenure_age,
-            "Salary": income_per_hour,
-            "Experience": exp_to_tenure,
-            "Marital": int(marital_status)
+            "Marital": int(marital_status),
+            "Hours": hours,
+            "Tenure": tenure,
+            "Commission": commission,
+            "Age": age
         }
 
         try:
@@ -166,6 +164,56 @@ if selected_page == "Prediction":
 
         except Exception as e:
             st.error(f"Prediction failed: {e}")
+            
+# Bulk Predictions
+    # Buat input prediksi, tapi satu file, jadi banyak output di history
+    # Auto cek kolom dengan nama fitur yang mirip
+    # Kalau gk ada yg mirip atau kosong, print error
+# ``` 
+    st.markdown("---")
+    st.subheader("📂 Input CSV file for bulk prediction")
+
+    with st.form("bulk_prediction_form"):
+        uploaded_file = st.file_uploader("Upload CSV file for bulk prediction", type=["csv"])
+        bulk_submit = st.form_submit_button("Predict in Bulk")
+
+    if bulk_submit and uploaded_file:
+        try:
+            bulk_response = requests.post("http://127.0.0.1:8000/bulk_predict", files={"file": uploaded_file.getvalue()})
+            result = bulk_response.json()
+            if "error" in result:
+                st.error(result["error"])
+            else:
+                st.success("Bulk prediction completed!")
+                # Count risk groups
+                risk_counts = {"High": 0, "Medium": 0, "Low": 0}
+
+                for entry in result["results"]:
+                    prob = entry["probability"]
+                    risk = entry["risk"]
+                    suggestion = entry["suggestion"]
+                    features = entry["features"]
+
+                    # Count risk level
+                    risk_counts[risk] += 1
+
+                    # Save to frontend history
+                    st.session_state.history.append({
+                        "input": features,
+                        "probability": prob,
+                        "risk": risk,
+                        "suggestion": suggestion
+                    })
+
+                # Display summary
+                st.success("✅ Bulk prediction completed!")
+                st.markdown(f"""
+                - 🔴 High Risk: **{risk_counts['High']}**
+                - 🟠 Medium Risk: **{risk_counts['Medium']}**
+                - 🟢 Low Risk: **{risk_counts['Low']}**
+                """)
+        except Exception as e:
+            st.error(f"Failed to process bulk file: {e}")
 
 # Selected sidebar page
 # ```
@@ -182,13 +230,40 @@ elif selected_page == "Previous Predictions":
     else:
         for i, record in enumerate(reversed(st.session_state.history), start=1):
             input_data = record["input"]
-            feature_names = list(input_data.keys())
-            feature_values = list(input_data.values())
+
+            # Mapping display names to raw keys
+            display_key_map = {
+                "Target": "target_achievement",
+                "Satisfaction": "job_satisfaction",
+                "Manager": "manager_support_score",
+                "Distance": "distance_to_office_km",
+                "Marital": "marital_status_Single",
+                "Hours": "working_hours_per_week",
+                "Tenure": "company_tenure_years",
+                "Commission": "commission_rate",
+                "Age": "age"
+            }
+
+            # Final display labels
+            display_keys = list(display_key_map.keys())
+
+            # Extract values in display order using internal/raw keys
+            feature_values = []
+            for k in display_keys:
+                backend_key = display_key_map[k]
+                val = input_data.get(backend_key)
+                if val is None:
+                    val = input_data.get(k, "")
+                if isinstance(val, float) and val.is_integer():
+                    val = int(val)
+                feature_values.append(val)
+
 
             probability = record['probability']
             risk = record['risk']
+            suggestion = record['suggestion']
 
-            # Color coding for table
+            # Risk color coding
             if probability < 0.33:
                 prob_color = "#1f5c2e"
                 risk_color = "#1f5c2e"
@@ -200,25 +275,27 @@ elif selected_page == "Previous Predictions":
                 risk_color = "#7a1f1f"
 
             table_html = f"""
-            <div style='margin-top: 20px;'>
+            <div style='margin-top: 20px; max-width: 900px; overflow-x: auto;'>
                 <h4>Prediction #{len(st.session_state.history) - i + 1}</h4>
-                <table style='width: 100%; border-collapse: collapse;'>
+                <table style='width: 100%; border-collapse: collapse; table-layout: auto;'>
                     <tr class='table-header'>
-                        {''.join(f'<th style="padding: 8px; border: 1px solid #ccc;">{col}</th>' for col in feature_names)}
+                        {''.join(f'<th style="padding: 8px; border: 1px solid #ccc;">{col}</th>' for col in display_keys)}
                     </tr>
                     <tr>
                         {''.join(f'<td style="padding: 8px; border: 1px solid #ccc;">{val}</td>' for val in feature_values)}
                     </tr>
                     <tr>
-                        <td style="padding: 8px; border: 1px solid #ccc; background-color: {prob_color}; color: white;" colspan="{len(feature_names)//2}">
+                        <td style="padding: 8px; border: 1px solid #ccc; background-color: {prob_color}; color: white;" colspan="5">
                             <strong>Probability:</strong> {probability:.0%}
                         </td>
-                        <td style="padding: 8px; border: 1px solid #ccc; background-color: {risk_color}; color: white;" colspan="{len(feature_names) - len(feature_names)//2}">
+                        <td style="padding: 8px; border: 1px solid #ccc; background-color: {risk_color}; color: white;" colspan="4">
                             <strong>Risk Group:</strong> {risk}
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="{len(feature_names)}" style="padding: 8px; border: 1px solid #ccc;"><strong>Suggestion:</strong> {record['suggestion']}</td>
+                        <td colspan="9" style="padding: 8px; border: 1px solid #ccc;">
+                            <strong>Suggestion:</strong> {suggestion}
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -226,3 +303,6 @@ elif selected_page == "Previous Predictions":
             """
 
             st.markdown(table_html, unsafe_allow_html=True)
+
+
+
